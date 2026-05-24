@@ -73,7 +73,7 @@ function run_simulation()
     
     # Initialize States
     psi_scv = ITensorNetwork(v -> "Up", sites)
-    psi_mid = ITensorNetwork(v -> v == (6, 5) ? "Dn" : "Up", sites)
+    psi_mid = ITensorNetwork(v -> v == (4, 3) ? "Dn" : "Up", sites)
     
     gates = make_tfim_gates(g, sites, dt)
 
