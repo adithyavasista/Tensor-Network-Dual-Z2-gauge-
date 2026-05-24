@@ -12,24 +12,24 @@ using LinearAlgebra: norm
 using Graphs                
 using Printf 
 
-# --- Parameters ---
+# Parameters 
 Nx      = 8       
 Ny      = 6          
-K_coup  = 3.0       # Weak coupling (vacuum boils!)
+K_coup  = 3.0      
 Gamma   = 1.0        
-DBOND   = 8    # Start at 4 for speed! Total flux takes 178 calculations per step.
+DBOND   = 8    
 dt      = 0.05       
-num_steps = 20       # Osama's plot goes to 20 Trotter steps
+num_steps = 20      
 CUTOFF  = 1e-10      
 
-# --- Lattice Setup ---
+# Lattice Setup 
 function build_lattice(Nx, Ny)
     g     = named_grid((Nx, Ny))          
     sites = siteinds("S=1/2", g)          
     return g, sites
 end
 
-# --- Trotter Gates ---
+# Trotter Gates
 function make_tfim_gates(g, sites, dt)
     gates = ITensor[]
     for e in edges(g)
@@ -45,7 +45,7 @@ function make_tfim_gates(g, sites, dt)
     return gates
 end
 
-# --- Measure TOTAL Flux ---
+# Measure TOTAL Flux 
 function measure_total_flux(psi, g, sites)
     total_flux = 0.0
     norm_psi = inner(psi, psi)
@@ -62,7 +62,7 @@ function measure_total_flux(psi, g, sites)
     return total_flux
 end
 
-# --- Main Simulation ---
+# Main Simulation 
 function run_simulation()
     println("="^60)
     println("  Calculating Total Electric Flux (SCV vs MID)")
@@ -117,7 +117,7 @@ function run_simulation()
     return steps, flux_scv_vals, flux_mid_vals, flux_diff_vals
 end
 
-# --- Execution & Export ---
+# Execution & Export 
 steps, flux_scv, flux_mid, flux_diff = run_simulation()
 
 save_path = "C:\\Users\\dell\\Desktop\\total_flux_results.csv"
@@ -127,4 +127,4 @@ open(save_path, "w") do f
         @printf(f, "%d,%.6f,%.6f,%.6f\n", steps[i], flux_scv[i], flux_mid[i], flux_diff[i])
     end
 end
-println("\n✓ Data saved to: ", save_path)
+println("\n Data saved to: ", save_path)
