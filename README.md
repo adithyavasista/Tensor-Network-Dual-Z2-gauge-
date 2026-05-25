@@ -17,4 +17,4 @@ This codebase utilizes the ITensors ecosystem. You will need Julia installed alo
 ### Execution
 To run the simulations sequentially across multiple bond dimensions (e.g., $D=8$ through $D=14$):
 ```bash
-julia peps_flux_array.jl
+julia dual_gauge.jl
