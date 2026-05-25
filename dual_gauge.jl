@@ -48,14 +48,17 @@ end
 # Measure TOTAL Flux 
 function measure_total_flux(psi, g, sites)
     total_flux = 0.0
-    norm_psi = inner(psi, psi)
     
-    # Sum the flux (1 - ZZ)/2 over every single bond in the lattice
+    norm_psi = inner(psi, psi; cache_update_kwargs=(; maxiter=100))
+    
+    # Sum the flux (1 - ZZ)/2 
     for e in edges(g)
         s1, s2 = sites[src(e)][1], sites[dst(e)][1]
         ZZ_op = op("Z", s1) * op("Z", s2)
         ZZ_ket = apply([ZZ_op], psi)
-        zz_val = real(inner(psi, ZZ_ket) / norm_psi)
+        
+        zz_inner = inner(psi, ZZ_ket; cache_update_kwargs=(; maxiter=100))
+        zz_val = real(zz_inner / norm_psi)
         
         total_flux += 0.5 * (1.0 - zz_val)
     end
@@ -71,7 +74,7 @@ function run_simulation()
 
     g, sites = build_lattice(Nx, Ny)
     
-    # Initialize States
+    # Initialize States 
     psi_scv = ITensorNetwork(v -> "Up", sites)
     psi_mid = ITensorNetwork(v -> v == (4, 3) ? "Dn" : "Up", sites)
     
@@ -120,7 +123,8 @@ end
 # Execution & Export 
 steps, flux_scv, flux_mid, flux_diff = run_simulation()
 
-save_path = "C:\\Users\\dell\\Desktop\\total_flux_results.csv"
+
+save_path = "total_flux_results_dbond_$(DBOND).csv"
 open(save_path, "w") do f
     println(f, "step,scv_flux,mid_flux,diff_flux")
     for i in eachindex(steps)
