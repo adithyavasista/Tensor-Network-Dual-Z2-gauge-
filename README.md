@@ -14,10 +14,6 @@ This codebase utilizes the ITensors ecosystem. You will need Julia installed alo
 * `NamedGraphs.jl`
 * `Observers.jl`
 
-### Execution
-To run the simulations sequentially across multiple bond dimensions (e.g., $D=8$ through $D=14$):
-
-
 ## 🚀 New Feature: Belief Propagation (BP) Simulation
 
 We have added an optimized script, `Belief_Propagation_Dual_gauge.jl`, which utilizes **Belief Propagation (BP)** to handle the tensor network operations much more efficiently.
