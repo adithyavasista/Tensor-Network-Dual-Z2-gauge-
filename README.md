@@ -16,8 +16,7 @@ This codebase utilizes the ITensors ecosystem. You will need Julia installed alo
 
 ### Execution
 To run the simulations sequentially across multiple bond dimensions (e.g., $D=8$ through $D=14$):
-```bash
-julia dual_gauge.jl
+
 
 ## 🚀 New Feature: Belief Propagation (BP) Simulation
 
@@ -28,4 +27,5 @@ We have added an optimized script, `Belief_Propagation_Dual_gauge.jl`, which uti
 
 To run this specific simulation:
 ```bash
+julia dual_gauge.jl
 julia Belief_Propagation_Dual_gauge.jl
