@@ -18,3 +18,14 @@ This codebase utilizes the ITensors ecosystem. You will need Julia installed alo
 To run the simulations sequentially across multiple bond dimensions (e.g., $D=8$ through $D=14$):
 ```bash
 julia dual_gauge.jl
+
+## 🚀 New Feature: Belief Propagation (BP) Simulation
+
+We have added an optimized script, `Belief_Propagation_Dual_gauge.jl`, which utilizes **Belief Propagation (BP)** to handle the tensor network operations much more efficiently.
+
+*   **Simple Update Time Evolution:** Trotterized time evolution is applied via BP-assisted simple updates. This allows for faster gate application while maintaining numerical stability through local truncation.
+*   **Global Observables:** Instead of standard edge-by-edge contraction, this script maintains a `BeliefPropagationCache`. This allows us to batch measure the $ZZ$ observables across the entire 2D lattice simultaneously, drastically reducing computation time.
+
+To run this specific simulation:
+```bash
+julia Belief_Propagation_Dual_gauge.jl
